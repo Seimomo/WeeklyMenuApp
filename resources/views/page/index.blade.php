@@ -267,7 +267,7 @@
                   <div class="row">
                     <div class="col-xs-6 col-sm-3">
                       <h4>日付</h4>
-                      <input type="text" class="form-control" name="edit_date_view" value="{{isset($editday)?$editday:''}}">
+                      <input type="text" id="day_edit" class="form-control" name="edit_date_view" value="{{isset($editday)?$editday:''}}">
                       <h4>メモ(イベント等)</h4>
                       <input type="text" class="form-control" name="event_name_view" @if(isset($editname))value="{{$editname}}"@endif>
                       <div id="button_area">
@@ -275,7 +275,15 @@
                           
                             <button type="submit" class="btn btn-primary btn-sm">編集保存</button>
                         </div>
-  
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                       </div>
                     </div>
                     <div class="col-xs-6 col-sm-3">
@@ -365,6 +373,7 @@
     <script>
       $( function() {
         $( "#day" ).datepicker({dateFormat: 'yy-mm-dd'});
+        $( "#day_edit" ).datepicker({dateFormat: 'yy-mm-dd'});
       } );
     </script>
 @endsection

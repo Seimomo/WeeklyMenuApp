@@ -277,10 +277,10 @@ class PageController extends Controller
 
     // 編集献立の保存   
     public function postEditSaveWeeklyMenu(Request $request) {
-        // $validatedData = $request->validate([
-        //     'edit_date' => 'required|date_format:Y-m-d',
-        //     'event_name' => 'required',
-        // ]);
+        $validatedData = $request->validate([
+            'edit_date_view' => 'required|date_format:Y-m-d',
+            'event_name_view' => 'required',
+        ]);
         
         //登録前リストを作成してViewに返す
         $menuList = $this->getMenuList();
