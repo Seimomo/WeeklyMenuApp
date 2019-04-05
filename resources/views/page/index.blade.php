@@ -102,7 +102,7 @@
                                 'メイン' => $maindish,
                                 '副菜' => $fukusai,
                                 'その他' => $other
-                              ],null,['class'=>'selecter_1'])}}
+                              ],null,['class'=>'form-control', 'id' => 'selecter_1'])}}
 
                         			<div class="input-group-btn">
                                 <button type="button" id="breakfast-select-plus" class="btn btn-dafult" tabindex="-1"
@@ -141,7 +141,7 @@
                                 'メイン' => $maindish,
                                 '副菜' => $fukusai,
                                 'その他' => $other
-                              ],null,['class'=>'selecter_2'])}}
+                              ],null,['class'=>'form-control', 'id' => 'selecter_2'])}}
 
                         			<div class="input-group-btn">
                                 <button type="button" id="lunch-select-plus" class="btn btn-dafult" tabindex="-1"
@@ -180,7 +180,7 @@
                                 'メイン' => $maindish,
                                 '副菜' => $fukusai,
                                 'その他' => $other
-                              ],null,['class'=>'selecter_3'])}}
+                              ],null,['class'=>'form-control', 'id' => 'selecter_3'])}}
 
                         			<div class="input-group-btn">
                                 <button type="button" id="dinner-select-plus" class="btn btn-dafult" tabindex="-1"
@@ -248,11 +248,11 @@
                   </div>
                 <div class="row">
 
-                  <div class="col-sm-12 col-md-12 col-lg-12">
+                  <div class="col-sm-12 col-md-6 col-lg-3">
                     <div class="panel-heading">編集</div>
                     {{Form::select('eventday', 
                       $eventday
-                    ,null,['class'=>'selecter_7'])}}
+                    ,null,['class'=>'form-control', 'id' => 'selecter_7'])}}
                   <button type="submit" class="btn btn-primary btn-sm" onclick="editview();">編集</button>
                   </div>
                 </div>
@@ -306,7 +306,7 @@
                               'メイン' => $maindish,
                               '副菜' => $fukusai,
                               'その他' => $other
-                            ],null,['class'=>'selecter_4'])}}
+                            ],null,['class'=>'form-control', 'id' => 'selecter_4'])}}
                     </div>
                     
                     <div class="col-xs-6 col-sm-3">
@@ -329,7 +329,7 @@
                               'メイン' => $maindish,
                               '副菜' => $fukusai,
                               'その他' => $other
-                            ],null,['class'=>'selecter_5'])}}
+                            ],null,['class'=>'form-control', 'id' => 'selecter_5'])}}
                     </div>
                     
                     <div class="col-xs-6 col-sm-3">
@@ -352,7 +352,7 @@
                               'メイン' => $maindish,
                               '副菜' => $fukusai,
                               'その他' => $other
-                            ],null,['class'=>'selecter_6'])}}
+                            ],null,['class'=>'form-control', 'id' => 'selecter_6'])}}
                     </div>
                   </div>
                 </form>
