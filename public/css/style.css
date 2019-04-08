@@ -12253,3 +12253,7 @@ body {
   background-color: #373E4A;
   border-color: #373E4A
 }
+
+.ui-datepicker {
+  z-index: 999 !important;
+}
