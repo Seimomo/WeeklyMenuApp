@@ -275,6 +275,20 @@ class PageController extends Controller
         );
     }
 
+// 週間献立画面＋編集画面の表示
+    public function postDeleteMenu(Request $request) {
+        $delete_day = $request->delete_date;
+        $menuList = $this->getMenuList();
+        
+        // イベントの削除
+        $delete_event = DayEvent::where('event_date', $delete_day)->delete(); 
+        
+        // 献立を削除
+        $edit_day_menu = WeekMenu::where('cooking_date', $delete_day)->delete();
+        
+        
+        return view('page.index', array_merge($this->getWeekMenuList(),$menuList, $this->getEventDayList()));
+    }
     // 編集献立の保存   
     public function postEditSaveWeeklyMenu(Request $request) {
         $validatedData = $request->validate([

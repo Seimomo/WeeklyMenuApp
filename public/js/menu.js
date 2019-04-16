@@ -61,3 +61,10 @@ function editview() {
     $('input:hidden[name="edit_date"]').val(edit_date);
     document.frm7list.submit();
 }
+
+//献立削除：
+function deletemenu() {
+    var delete_date = $('#selecter_7 option:selected').text();
+    $('input:hidden[name="delete_date"]').val(delete_date);
+    document.frm8list.submit();
+}

@@ -26,6 +26,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/edit','PageController@postEditViewMenuList');
     
     Route::post('/editsave','PageController@postEditSaveWeeklyMenu');
+    
+    Route::post('/delete','PageController@postDeleteMenu');
 });
 
 Auth::routes();
