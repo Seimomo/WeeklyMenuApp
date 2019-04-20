@@ -107,7 +107,7 @@ class PageController extends Controller
         }
         
         $editMenuList = ['edit1list1' => $plusList1, 'edit1list2' => $plusList2, 'edit1list3' => $plusList3];
-        return view('page.index', array_merge($editMenuList,$menuList, $this->getWeekMenuList(),$this->getEventDayList()));
+        return view('page.index', array_merge($editMenuList,$menuList, $this->getWeekMenuList(),$this->getYoubiList(),$this->getEventDayList()));
     }
     public function postWeeklyMenu(Request $request) {
         $validatedData = $request->validate([
@@ -221,7 +221,7 @@ class PageController extends Controller
         
         session()->flush();
         
-       return view('page.index', array_merge($this->getWeekMenuList(),$menuList, $this->getEventDayList()));
+       return view('page.index', array_merge($this->getWeekMenuList(),$menuList, $this->getYoubiList(),$this->getEventDayList()));
        
        //return view('page.index', array_merge(['weekMenu' => $this->getWeekMenuList()],$menuList));
     }
@@ -261,7 +261,7 @@ class PageController extends Controller
             array_push($edit_day_menulist3,$val->menu_name);
         }
         
-        return view('page.index', array_merge($this->getWeekMenuList(),$menuList, $this->getEventDayList(),
+        return view('page.index', array_merge($this->getWeekMenuList(),$menuList, $this->getYoubiList(), $this->getEventDayList(),
             ['editday' => $edit_day], ['editname' => $edit_event_name],
             ['editmenulist_breakfast' => $edit_day_menulist1], ['editmenulist_lunch' => $edit_day_menulist2], ['editmenulist_dinner' => $edit_day_menulist3])
         );
@@ -278,7 +278,7 @@ class PageController extends Controller
         $edit_day_menu = WeekMenu::where('cooking_date', $delete_day)->delete();
         
         
-        return view('page.index', array_merge($this->getWeekMenuList(),$menuList, $this->getEventDayList()));
+        return view('page.index', array_merge($this->getWeekMenuList(),$menuList, $this->getYoubiList(), $this->getEventDayList()));
     }
     // 編集献立の保存   
     public function postEditSaveWeeklyMenu(Request $request) {
@@ -376,7 +376,7 @@ class PageController extends Controller
         $dayEvent->event_name = $event_name_view;
         $dayEvent->save();
         
-       return view('page.index', array_merge($this->getWeekMenuList(),$menuList, $this->getEventDayList()));
+       return view('page.index', array_merge($this->getWeekMenuList(),$menuList, $this->getYoubiList(), $this->getEventDayList()));
        
     }
     
