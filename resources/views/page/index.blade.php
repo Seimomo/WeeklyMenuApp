@@ -143,7 +143,7 @@
                           <tbody>
                             @foreach($weekMenu as $val)
                             <tr>
-                                <td>{{$val->cooking_date}}</td>
+                                <td>{{$val->cooking_date}}{{$event_youbi[$val->cooking_date]}}</td>
                                 <td @if($val->kind == '1')class="danger" @elseif($val->kind == '2')class="warning" @else class="info"@endif>
                                   @if ($val->kind == '1')
                                       朝

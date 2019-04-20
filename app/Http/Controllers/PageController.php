@@ -1,20 +1,17 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Menu;
 use App\WeekMenu;
 use App\DayEvent;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-
 class PageController extends Controller
 {
     // 週間献立画面の表示
     public function index(Request $request) {
         $menuList = $this->getMenuList();
         
-        return view('page.index', array_merge($this->getWeekMenuList(),$menuList, $this->getEventDayList()));
+        return view('page.index', array_merge($this->getWeekMenuList(),$menuList, $this->getYoubiList(), $this->getEventDayList()));
     }
     
     // 献立アイテム画面の表示
@@ -25,7 +22,6 @@ class PageController extends Controller
         $other = Menu::where('category', '4')->get();
         return view('page.master', ['shushoku' => $shushoku, 'maindish' => $maindish, 'fukusai' => $fukusai, 'other' => $other]);
     }
-
     
     public function postMenuMaster(Request $request) {
         
@@ -111,11 +107,8 @@ class PageController extends Controller
         }
         
         $editMenuList = ['edit1list1' => $plusList1, 'edit1list2' => $plusList2, 'edit1list3' => $plusList3];
-
         return view('page.index', array_merge($editMenuList,$menuList, $this->getWeekMenuList(),$this->getEventDayList()));
-
     }
-
     public function postWeeklyMenu(Request $request) {
         $validatedData = $request->validate([
             'edit_date' => 'required|date_format:Y-m-d',
@@ -177,7 +170,6 @@ class PageController extends Controller
             $weekMenu->menu_name = "ごはん";
             array_push($weekMenuList,$weekMenu);
         }
-
         // セッションからの朝昼晩のメニューリストを取得        
         if(session()->has('plusList1')) {
             $plusList1 = session('plusList1');
@@ -274,7 +266,6 @@ class PageController extends Controller
             ['editmenulist_breakfast' => $edit_day_menulist1], ['editmenulist_lunch' => $edit_day_menulist2], ['editmenulist_dinner' => $edit_day_menulist3])
         );
     }
-
 // 週間献立画面＋編集画面の表示
     public function postDeleteMenu(Request $request) {
         $delete_day = $request->delete_date;
@@ -303,7 +294,6 @@ class PageController extends Controller
         $edit_date_view = $request->edit_date_view;
         $event_name_view = $request->event_name_view;
         
-
         // 日付からすでに献立がある場合　⇒　g該当日の献立とイベントを削除
         $eventday_list = WeekMenu::where('cooking_date', $edit_date_view)->delete();
         $event_day = DayEvent::where('event_date', $edit_date_view)->delete();
@@ -437,5 +427,32 @@ class PageController extends Controller
             $event[$val->event_date] = $val->event_date;
         }
         return ['eventday' => $event]; // viewにハッシュのキーを渡す必要あり
+    }
+    
+    // イベント日付リストを返す
+    private function getYoubiList() {
+        $eventdaylist =  DayEvent::orderBy('event_date', 'desc')->get();
+        $event_youbi = array();
+        foreach($eventdaylist as $val) {
+            $event_youbi[$val->event_date] = $this->getYoubi($val->event_date);
+        }
+        return ['event_youbi' => $event_youbi]; // viewにハッシュのキーを渡す必要あり
+    }
+    
+    // 日付の曜日を返す
+    private function getYoubi($day) {
+        $week = [
+          '日', //0
+          '月', //1
+          '火', //2
+          '水', //3
+          '木', //4
+          '金', //5
+          '土', //6
+        ]; 
+        $timestamp = strtotime($day);
+        $date = date('w', $timestamp);
+        
+        return "(".$week[$date].")";
     }
 }
